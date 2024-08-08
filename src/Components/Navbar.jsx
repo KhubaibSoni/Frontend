@@ -13,7 +13,7 @@ function Navbar() {
     <>
       <nav className="navbar">
         <div className="navbar-container">
-          <Link to="/" className="navbar-logo">WorkOut Buddy</Link>
+          <Link to="/" className="navbar-logo">WorkOut Buddies</Link>
           <ul className={`navbar-menu ${isOpen ? 'active' : ''}`}>
             <li className="navbar-item"><Link to="/" className="navbar-link">Home</Link></li>
             <li className="navbar-item"><Link to="/create" className="navbar-link">Create</Link></li>
