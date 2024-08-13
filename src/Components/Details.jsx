@@ -10,7 +10,7 @@ function Detail({ workout }) {
 const featch =async ()=>{
   try {
       
-    const response = await ApiFunc('Delete',{'Authorization' : `Bearer ${user.token}`},{},"https://backend-eta-fawn-14.vercel.app/api/workouts/",workout._id)
+    const response = await ApiFunc('Delete',{'Authorization' : `Bearer ${user.token}`},{},"https://backend-eta-fawn-14.vercel.app/api/workouts",workout._id)
     
     if (response) {
       console.log(user);

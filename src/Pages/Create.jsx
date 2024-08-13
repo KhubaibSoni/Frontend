@@ -28,7 +28,7 @@ function Create() {
               'Authorization' : `Bearer ${user.token}` 
              },
             data,
-            "https://backend-eta-fawn-14.vercel.app/api/workouts/"
+            "https://backend-eta-fawn-14.vercel.app/api/workouts"
           );
     
           if (response.error) {

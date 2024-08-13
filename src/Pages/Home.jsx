@@ -15,7 +15,7 @@ if(status == true){
 
     const fetchData = async () => {
      try {
-      const data =  await ApiFunc("GET" ,{'Authorization' : `Bearer ${user.token}` } ,"https://backend-eta-fawn-14.vercel.app/api/workouts/" )
+      const data =  await ApiFunc("GET" ,{'Authorization' : `Bearer ${user.token}` } ,"https://backend-eta-fawn-14.vercel.app/api/workouts" )
       
       if(data){
        await dispatch({type:"SET_WORKOUTS" , payload:data})
