@@ -23,7 +23,6 @@ function Navbar() {
     <>
       <nav className="navbar">
         <div className="navbar-container">
-<<<<<<< HEAD
           <Link to="/" className="navbar-logo">WorkOut Buddy</Link>
 =======
           <Link to="/" className="navbar-logo">WorkOut Buddies</Link>
@@ -31,7 +30,6 @@ function Navbar() {
             <li className="navbar-item"><Link to="/" className="navbar-link">Home</Link></li>
             <li className="navbar-item"><Link to="/create" className="navbar-link">Create</Link></li>
           </ul>
->>>>>>> 7b0134b1484b9ade4dc518ac578d137c2643ebcb
           <div className="navbar-toggle" onClick={toggleMenu}>
             <span className="bar"></span>
             <span className="bar"></span>
