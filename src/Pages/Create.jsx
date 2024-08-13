@@ -1,49 +1,54 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './Create.css'; // Importing a CSS file for styling
-import { useWorkoutsContext } from "../Hooks/WorkoutContext";
+import { useWorkoutsContext } from "../Hook/WorkoutContext";
+import ApiFunc from "../Components/Api";
+import { UserUseContext } from "../Hook/useUserContext";
 
  
 
 function Create() {
     const {workouts,dispatch} = useWorkoutsContext()
-
+    const {status , user} = UserUseContext()
     const navigate = useNavigate()
     const [title, setTitle] = useState('');
     const [Reps, setReps] = useState('');
     const [Weight, setWeight] = useState('');
     const [Error, setError] = useState('');
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const workout = {title,Reps,Weight}
-       const Fetch= async()=>{
-         const response = await fetch('https://backend-eta-fawn-14.vercel.app/api/workouts/',{
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json' // Set content type to JSON
-            },
-            body: JSON.stringify(workout)
-         })
-         const json = await response.json()
-         if(!response.ok){
-         setError(response.message)
-         }
-         if(response.ok){
-            setError('')
-            setTitle('')
-            setReps('')
-            setWeight('')
-            dispatch({type:'Create_Workouts' , payload:json})
-            navigate('/')
-         }
-       }
-       
-       Fetch()
-      
- };
+        const workout = { title, Reps, Weight , user };
+        const data = JSON.stringify(workout);
+    
+        try {
+          const response = await ApiFunc(
+            'post',
+            { 'Content-Type': 'application/json',
+              'Authorization' : `Bearer ${user.token}` 
+             },
+            data,
+            "https://backend-eta-fawn-14.vercel.app/api/workouts/"
+          );
+    
+          if (response.error) {
+            setError(response.message || 'An error occurred');
+          } else {
+            setError('');
+            setTitle('');
+            setReps('');
+            setWeight('');
+            dispatch({ type: 'Create_Workouts', payload: response
 
-    return (
+             });
+            navigate('/');
+          }
+        } catch (error) {
+          setError('An error occurred during submission');
+        }
+      };
+
+    return status ? (
         <div className="form-container">
             <form onSubmit={handleSubmit} className="form" >
                 <div className="form-group">
@@ -86,7 +91,7 @@ function Create() {
             </form>
             <p>{Error}</p>
         </div>
-    );
+    ) : null
 }
 
 export default Create;

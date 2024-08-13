@@ -1,24 +1,26 @@
 import './Detail.css'; // Import the CSS file for styling
-import { useWorkoutsContext } from "../Hooks/WorkoutContext";
+import { useWorkoutsContext } from "../Hook/WorkoutContext";
+import ApiFunc from './Api';
+import { UserUseContext } from '../Hook/useUserContext';
 
 function Detail({ workout }) {
   const { dispatch } = useWorkoutsContext();
-
-  const handleDelete = async () => {
-    try {
-      const response = await fetch(`https://backend-eta-fawn-14.vercel.app/api/workouts/${workout._id}`, {
-        method: "DELETE"
-      });
-
-      const json = await response.json();
-
-      if (response.ok) {
-        console.log(json);
-        dispatch({ type: 'DELETE_WORKOUT', payload: json });
-      }
-    } catch (error) {
-      console.error("Failed to delete workout:", error);
+  const{user} = UserUseContext()
+  const handleDelete = () => {
+const featch =async ()=>{
+  try {
+      
+    const response = await ApiFunc('Delete',{'Authorization' : `Bearer ${user.token}`},{},"https://backend-eta-fawn-14.vercel.app/api/workouts/",workout._id)
+    
+    if (response) {
+      console.log(user);
+      dispatch({ type: 'DELETE_WORKOUT', payload: response });
     }
+  } catch (error) {
+    console.error("Failed to delete workout:", error);
+  }
+}
+featch()
   };
 
   return (

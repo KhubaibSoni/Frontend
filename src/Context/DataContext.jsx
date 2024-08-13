@@ -11,7 +11,6 @@ export const workoutReducer = (state, action) => {
 
     case 'CREATE_WORKOUT':
       return {
-        ...state,
         workouts: [action.payload, ...state.workouts]
       };
       
